@@ -193,6 +193,25 @@ footer {
     </button>
 
     <p id="authMessage"></p>
+</section><section class="card" id="profilePhotoSection">
+    <h3>My Profile Picture 📸</h3>
+
+    <img id="profileAvatar"
+         src=""
+         alt="Profile picture"
+         width="100"
+         height="100">
+
+    <input
+        type="file"
+        id="profilePicture"
+        accept="image/*">
+
+    <button class="post-button" onclick="uploadProfilePicture()">
+        Upload Picture
+    </button>
+
+    <p id="pictureMessage"></p>
 </section>
     <section class="welcome">
         <h2>Welcome to NEXORA 🌍</h2>
@@ -371,7 +390,62 @@ async function loginUser() {
         return;
     }
 
-    message.textContent = "Welcome to NEXORA!";
+    message.textContent = "Welcome to NEXORA!";async function uploadProfilePicture() {
+    const file = document.getElementById("profilePicture").files[0];
+    const message = document.getElementById("pictureMessage");
+    const avatar = document.getElementById("profileAvatar");
+
+    if (!file) {
+        message.textContent = "Please select a picture.";
+        return;
+    }
+
+    if (!file.type.startsWith("image/") || file.size > 5 * 1024 * 1024) {
+        message.textContent = "Choose an image smaller than 5 MB.";
+        return;
+    }
+
+    const { data: { user } } =
+        await supabaseClient.auth.getUser();
+
+    if (!user) {
+        message.textContent = "Please log in first.";
+        return;
+    }
+
+    message.textContent = "Uploading picture...";
+
+    const extension = file.name.split(".").pop().toLowerCase();
+    const filePath = `${user.id}/avatar-${Date.now()}.${extension}`;
+
+    const { error: uploadError } = await supabaseClient.storage
+        .from("profile-pictures")
+        .upload(filePath, file);
+
+    if (uploadError) {
+        message.textContent = uploadError.message;
+        return;
+    }
+
+    const { data } = supabaseClient.storage
+        .from("profile-pictures")
+        .getPublicUrl(filePath);
+
+    const imageUrl = data.publicUrl;
+
+    const { error: updateError } = await supabaseClient
+        .from("profiles")
+        .update({ avatar_url: imageUrl })
+        .eq("id", user.id);
+
+    if (updateError) {
+        message.textContent = updateError.message;
+        return;
+    }
+
+    avatar.src = imageUrl;
+    message.textContent = "Profile picture uploaded successfully!";
+    }
 }async function loadPosts() {
     const feed = document.getElementById("feed");
 
