@@ -244,7 +244,7 @@ footer {
 </nav>
 
 <script>
-function createPost() {
+async function createPost() {
     const input = document.getElementById("postText");
     const feed = document.getElementById("feed");
     const message = input.value.trim();
@@ -254,23 +254,42 @@ function createPost() {
         return;
     }
 
+    const { data: { user }, error: authError } =
+        await supabaseClient.auth.getUser();
+
+    if (authError || !user) {
+        alert("Please log in before publishing.");
+        return;
+    }
+
+    const { error } = await supabaseClient
+        .from("posts")
+        .insert({
+            user_id: user.id,
+            content: message
+        });
+
+    if (error) {
+        alert("Post failed: " + error.message);
+        return;
+    }
+
     const post = document.createElement("div");
     post.className = "post";
 
     const author = document.createElement("small");
-    author.textContent = "NEXORA USER";
+    author.textContent = "@" +
+        (user.user_metadata.username || "NEXORA USER");
 
     const content = document.createElement("p");
     content.textContent = message;
 
-    const actions = document.createElement("div");
-    actions.className = "actions";
-    actions.textContent = "♡ Like     ◯ Comment     ↗ Share";
-
-    post.append(author, content, actions);
+    post.append(author, content);
     feed.prepend(post);
 
     input.value = "";
+
+    alert("Your post has been published!");
 }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
