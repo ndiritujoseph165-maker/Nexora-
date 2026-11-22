@@ -4,7 +4,84 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NEXORA — One World. Every Voice.</title>
+.top-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 14px 25px;
+    background: #101a30;
+    border-bottom: 1px solid #263653;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
 
+.brand {
+    min-width: 180px;
+}
+
+.logo {
+    color: #258cf5;
+    font-size: 27px;
+    font-weight: 900;
+    letter-spacing: 3px;
+}
+
+.tagline {
+    color: #d6b45e;
+    font-size: 11px;
+}
+
+.header-search {
+    flex: 1;
+    max-width: 480px;
+}
+
+.header-search input {
+    border-radius: 25px;
+    padding: 13px 20px;
+    background: #091426;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.notification-button {
+    background: transparent;
+    color: white;
+    font-size: 23px;
+}
+
+.header-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #d6b45e;
+}
+
+@media (max-width: 600px) {
+    .top-header {
+        padding: 12px;
+        gap: 8px;
+    }
+
+    .brand {
+        min-width: auto;
+    }
+
+    .header-search {
+        max-width: 150px;
+    }
+
+    .header-actions {
+        gap: 5px;
+    }
+}
 <style>
 * {
     margin: 0;
@@ -151,102 +228,310 @@ footer {
     color: #71839d;
     padding: 30px 10px 90px;
     font-size: 12px;
+}/* NEXORA THREE-COLUMN DASHBOARD */
+
+.nexora-layout {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 650px) 280px;
+    gap: 25px;
+    max-width: 1250px;
+    margin: 25px auto;
+    padding: 0 18px;
+    align-items: start;
 }
+
+.left-sidebar,
+.right-sidebar {
+    position: sticky;
+    top: 95px;
+}
+
+.left-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.sidebar-brand {
+    color: #258cf5;
+    font-size: 25px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+
+.left-sidebar a {
+    color: white;
+    text-decoration: none;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+.left-sidebar a:hover {
+    background: #1c2c48;
+    color: #258cf5;
+}
+
+.main-feed {
+    min-width: 0;
+}
+
+.main-feed .card,
+.right-sidebar .card {
+    margin-bottom: 20px;
+}
+
+.main-feed textarea {
+    width: 100%;
+    min-height: 100px;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
+.right-sidebar h3 {
+    color: #d6b45e;
+}
+
+.trend {
+    padding: 12px 0;
+    border-bottom: 1px solid #263653;
+}
+
+.trend small {
+    color: #8b9bb5;
+}
+
+.trend h4 {
+    margin: 5px 0;
+    color: white;
+}
+
+.nexora-promo {
+    background: linear-gradient(135deg, #102c55, #071426);
+    border: 1px solid #d6b45e;
+    border-radius: 14px;
+    padding: 22px;
+    text-align: center;
+    color: white;
+}
+
+.nexora-promo h2 {
+    color: #d6b45e;
+}
+
+@media (max-width: 950px) {
+    .nexora-layout {
+        grid-template-columns: 180px minmax(0, 1fr);
+    }
+
+    .right-sidebar {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .nexora-layout {
+        display: block;
+        margin: 12px auto;
+        padding: 0 10px;
+    }
+
+    .left-sidebar {
+        display: none;
+    }
+
+    .main-feed {
+        width: 100%;
+    }
+    }
 </style>
 </head>
 
 <body>
 
-<header>
-    <div>
+<header class="top-header">
+
+    <div class="brand">
         <div class="logo">NEXORA</div>
-        <div class="tagline">One World. Every Voice.</div>
+        <div class="tagline">Connect • Share • Grow</div>
     </div>
 
-    <button class="login" onclick="alert('Login coming soon!')">
-        Login
-    </button>
+    <div class="header-search">
+        <input type="search" placeholder="Search NEXORA...">
+    </div>
+
+    <div class="header-actions">
+        <button class="notification-button">♧</button>
+
+        <img id="headerAvatar"
+             src=""
+             alt="Profile"
+             class="header-avatar">
+
+        <button class="login" onclick="loginUser()">Login</button>
+    </div>
+
 </header>
 
-<main>
-<section class="card" id="authSection">
-    <h3>Join NEXORA 🌍</h3>
+<main class="nexora-layout">
 
-    <input id="displayName" type="text"
-    placeholder="Full name">
+    <!-- LEFT SIDEBAR -->
+    <aside class="left-sidebar">
+        <div class="sidebar-brand">NEXORA</div>
 
-    <input id="username" type="text"
-    placeholder="Choose username">
+        <a href="#">🏠 Home</a>
+        <a href="#">🔍 Explore</a>
+        <a href="#">🔔 Notifications</a>
+        <a href="#">✉️ Messages</a>
+        <a href="#">🔖 Bookmarks</a>
+        <a href="#">📋 Lists</a>
+        <a href="#">👤 Profile</a>
+        <a href="#">⚙️ Settings</a>
 
-    <input id="email" type="email"
-    placeholder="Email address">
+        <button class="post-button">Post</button>
+    </aside>
 
-    <input id="password" type="password"
-    placeholder="Password">
 
-    <button class="post-button" onclick="registerUser()">
-        Create Account
-    </button>
+    <!-- CENTRE FEED -->
+    <section class="main-feed">
 
-    <button class="login" onclick="loginUser()">
-        Login
-    </button>
+        <div class="welcome">
+            <h2>Welcome to NEXORA 🌍</h2>
+            <p>One World. Every Voice.</p>
+        </div>
 
-    <p id="authMessage"></p>
-</section><section class="card" id="profilePhotoSection">
-    <h3>My Profile Picture 📸</h3>
+        <section class="card" id="authSection">
+            <h3>Join NEXORA</h3>
 
-    <img id="profileAvatar"
-         src=""
-         alt="Profile picture"
-         width="100"
-         height="100">
+            <input id="displayName" type="text"
+                   placeholder="Full name">
 
-    <input
-        type="file"
-        id="profilePicture"
-        accept="image/*">
+            <input id="username" type="text"
+                   placeholder="Choose username">
 
-    <button class="post-button" onclick="uploadProfilePicture()">
-        Upload Picture
-    </button>
+            <input id="email" type="email"
+                   placeholder="Email address">
 
-    <p id="pictureMessage"></p>
-</section>
-    <section class="welcome">
-        <h2>Welcome to NEXORA 🌍</h2>
-        <p>
-            Connect with the world. Share your ideas.
-            Discover people and communities.
-        </p>
+            <input id="password" type="password"
+                   placeholder="Password">
+
+            <button class="post-button"
+                    onclick="registerUser()">
+                Create Account
+            </button>
+
+            <button class="login"
+                    onclick="loginUser()">
+                Login
+            </button>
+
+            <p id="authMessage"></p>
+        </section>
+
+
+        <!-- PROFILE PHOTO -->
+        <section class="card" id="profilePhotoSection">
+
+            <img id="profileAvatar"
+                 src=""
+                 alt="Profile picture"
+                 width="100"
+                 height="100">
+
+            <input type="file"
+                   id="profilePicture"
+                   accept="image/*">
+
+            <button class="post-button"
+                    onclick="uploadProfilePicture()">
+                Upload Picture
+            </button>
+
+            <p id="pictureMessage"></p>
+        </section>
+
+
+        <!-- POST COMPOSER -->
+        <section class="card">
+            <h3>What's happening?</h3>
+
+            <textarea id="postText"
+                placeholder="Share your thoughts with the world...">
+            </textarea>
+
+            <button class="post-button"
+                    onclick="createPost()">
+                Publish Post
+            </button>
+        </section>
+
+
+        <!-- GLOBAL FEED -->
+        <section class="card">
+            <h3>Global Feed</h3>
+
+            <div id="feed">
+
+                <div class="post">
+                    <small>NEXORA OFFICIAL</small>
+                    <p>
+                        Welcome to the next generation of
+                        global social networking.
+                        Your voice matters!
+                    </p>
+                    <div class="actions">
+                        🌍 Welcome to NEXORA
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
     </section>
 
-    <section class="card">
-        <h3>What's happening?</h3>
 
-        <textarea id="postText"
-        placeholder="Share your thoughts with the world..."></textarea>
+    <!-- RIGHT SIDEBAR -->
+    <aside class="right-sidebar">
 
-        <button class="post-button" onclick="createPost()">
-            Publish Post
-        </button>
-    </section>
+        <section class="card">
+            <h3>Trending Now 🌍</h3>
 
-    <section class="card">
-        <h3>Global Feed</h3>
-        <div id="feed">
-
-            <div class="post">
-                <small>NEXORA OFFICIAL</small>
-                <p>
-                    Welcome to the next generation of global
-                    social networking. Your voice matters!
-                </p>
-                <div class="actions">🌍 Welcome to NEXORA</div>
+            <div class="trend">
+                <small>Worldwide</small>
+                <h4>#GlobalNews</h4>
             </div>
 
-        </div>
-    </section>
+            <div class="trend">
+                <small>Technology</small>
+                <h4>#ArtificialIntelligence</h4>
+            </div>
+
+            <div class="trend">
+                <small>Africa</small>
+                <h4>#KenyaNews</h4>
+            </div>
+
+            <div class="trend">
+                <small>Business</small>
+                <h4>#WorldEconomy</h4>
+            </div>
+        </section>
+
+
+        <section class="card">
+            <h3>Who to Follow</h3>
+            <p>Discover people and communities around the world.</p>
+        </section>
+
+
+        <section class="nexora-promo">
+            <h3>One World.</h3>
+            <h2>Every Voice.</h2>
+            <p>Welcome to the next generation of connection.</p>
+        </section>
+
+    </aside>
 
 </main>
 
