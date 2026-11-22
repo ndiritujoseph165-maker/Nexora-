@@ -395,12 +395,16 @@ async function loginUser() {
             post.profiles?.username ||
             "NEXORA USER";
 
-        const content = document.createElement("p");
-        content.textContent = post.content;
+ const content = document.createElement("p");
+content.textContent = post.content;
 
-        postCard.appendChild(author);
-        postCard.appendChild(content);
-        feed.appendChild(postCard);
+const time = document.createElement("small");
+time.textContent = new Date(post.created_at).toLocaleString();
+
+postCard.appendChild(author);
+postCard.appendChild(time);
+postCard.appendChild(content);
+feed.appendChild(postCard);       
     });
 }
 
