@@ -454,7 +454,7 @@ async function loadPosts() {
 
     const { data, error } = await supabaseClient
         .from("posts")
-        .select("id, content, created_at, profiles(username, display_name)")
+        .select("id, content, created_at, profiles(username, display_name, avatar_url)")
         .order("created_at", { ascending: false });
 
     if (error) {
@@ -471,13 +471,20 @@ async function loadPosts() {
             post.profiles?.display_name ||
             post.profiles?.username ||
             "NEXORA USER";
-
+const avatar = document.createElement("img");
+avatar.src = post.profiles?.avatar_url || "";
+avatar.alt = "Profile picture";
+avatar.width = 45;
+avatar.height = 45;
+avatar.style.borderRadius = "50%";
+avatar.style.objectFit = "cover";
  const content = document.createElement("p");
 content.textContent = post.content;
 
 const time = document.createElement("small");
 time.textContent = new Date(post.created_at).toLocaleString();
 
+postCard.appendChild(avatar);
 postCard.appendChild(author);
 postCard.appendChild(time);
 postCard.appendChild(content);
