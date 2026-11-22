@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXORA — One World. Every Voice.</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #080e1c;
+    color: white;
+}
+
+header {
+    background: #101a30;
+    padding: 17px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #263653;
+    position: sticky;
+    top: 0;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+    color: #38aaff;
+    letter-spacing: 2px;
+}
+
+.tagline {
+    font-size: 10px;
+    color: #d5b45b;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    border-radius: 7px;
+    padding: 10px 15px;
+    font-weight: bold;
+}
+
+.login {
+    background: #168cf0;
+    color: white;
+}
+
+main {
+    max-width: 650px;
+    margin: 20px auto;
+    padding: 12px;
+}
+
+.welcome {
+    background: linear-gradient(135deg, #102b50, #164d81);
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.welcome h2 {
+    margin-bottom: 8px;
+}
+
+.welcome p {
+    color: #d1e6ff;
+    font-size: 14px;
+}
+
+.card {
+    background: #111c30;
+    padding: 17px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #253653;
+}
+
+.card h3 {
+    margin-bottom: 12px;
+}
+
+textarea {
+    width: 100%;
+    min-height: 85px;
+    background: #091426;
+    border: 1px solid #304565;
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    resize: vertical;
+    font-family: inherit;
+}
+
+.post-button {
+    background: #168cf0;
+    color: white;
+    margin-top: 10px;
+}
+
+.post {
+    background: #142239;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 12px;
+}
+
+.post small {
+    color: #38aaff;
+}
+
+.post p {
+    margin: 12px 0;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.actions {
+    color: #a9bdd8;
+    font-size: 13px;
+}
+
+nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #101a30;
+    border-top: 1px solid #263653;
+    display: flex;
+    justify-content: space-around;
+    padding: 13px 4px;
+}
+
+nav a {
+    color: #a9bdd8;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+footer {
+    text-align: center;
+    color: #71839d;
+    padding: 30px 10px 90px;
+    font-size: 12px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div>
+        <div class="logo">NEXORA</div>
+        <div class="tagline">One World. Every Voice.</div>
+    </div>
+
+    <button class="login" onclick="alert('Login coming soon!')">
+        Login
+    </button>
+</header>
+
+<main>
+
+    <section class="welcome">
+        <h2>Welcome to NEXORA 🌍</h2>
+        <p>
+            Connect with the world. Share your ideas.
+            Discover people and communities.
+        </p>
+    </section>
+
+    <section class="card">
+        <h3>What's happening?</h3>
+
+        <textarea id="postText"
+        placeholder="Share your thoughts with the world..."></textarea>
+
+        <button class="post-button" onclick="createPost()">
+            Publish Post
+        </button>
+    </section>
+
+    <section class="card">
+        <h3>Global Feed</h3>
+        <div id="feed">
+
+            <div class="post">
+                <small>NEXORA OFFICIAL</small>
+                <p>
+                    Welcome to the next generation of global
+                    social networking. Your voice matters!
+                </p>
+                <div class="actions">🌍 Welcome to NEXORA</div>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    © 2026 NEXORA. One World. Every Voice.
+</footer>
+
+<nav>
+    <a href="#">🏠 Home</a>
+    <a href="#">🔍 Explore</a>
+    <a href="#">➕ Create</a>
+    <a href="#">💬 Chat</a>
+    <a href="#">👤 Profile</a>
+</nav>
+
+<script>
+function createPost() {
+    const input = document.getElementById("postText");
+    const feed = document.getElementById("feed");
+    const message = input.value.trim();
+
+    if (!message) {
+        alert("Please write something first.");
+        return;
+    }
+
+    const post = document.createElement("div");
+    post.className = "post";
+
+    const author = document.createElement("small");
+    author.textContent = "NEXORA USER";
+
+    const content = document.createElement("p");
+    content.textContent = message;
+
+    const actions = document.createElement("div");
+    actions.className = "actions";
+    actions.textContent = "♡ Like     ◯ Comment     ↗ Share";
+
+    post.append(author, content, actions);
+    feed.prepend(post);
+
+    input.value = "";
+}
+</script>
+
+</body>
+      </html>
